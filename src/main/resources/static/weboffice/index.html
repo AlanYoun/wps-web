@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<body >
+        <h>在线编辑: </h>
+        <h>注意：正式项目中，尽量不要直接用文件名作为重要参数，因为字符编码等问题，容易导致签名不过等问题，建议用fileid等做为唯一标识。（可以参考go-demo）</h>
+        <blockquote>
+                <input type="button" value="test.docx"  onclick="openFile('111111')"/>
+                <input type="button" value="new.docx"  onclick="openFile('40281d817511d343017511d3ca7c0000')"/>
+        </blockquote>
+</body>
+<script src = "https://qn.cache.wpscdn.cn/js/jquery-1.9.1.min.js"> </script>
+<script src="jwps.js"> </script>
+<script >
+    function openFile(filename)
+    {
+        $.get("/getViewUrl?id=1&name=yy&permission=write&avatar_url=http://1223e442f69e.ngrok.io/wps/22fe37b3554a5a42f9faf73fe621f1bc.jpg&fileId=" + filename , function(result) {
+            console.log(result);
+			wps = WPS.config({wpsUrl: result.data.wpsUrl});
+			wps.setToken({token: result.data.token});
+        })
+    }
+</script>
+<style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      /* 防止双击缩放 */
+      touch-action: manipulation;
+    }
+
+    iframe {
+      flex: 1;
+    }
+  </style>
+</html> 
