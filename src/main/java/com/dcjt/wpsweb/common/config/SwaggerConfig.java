@@ -1,7 +1,6 @@
 package com.dcjt.wpsweb.common.config;
 
 import com.dcjt.wpsweb.common.props.MinioProperties;
-import com.dcjt.wpsweb.wps.props.WpsProperties;
 import io.minio.MinioClient;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +10,6 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-
-import javax.annotation.Resource;
 
 /**
  * 描述信息
