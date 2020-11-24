@@ -14,6 +14,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface FileRepository extends JpaRepository<WFile, String> {
-
-
 }

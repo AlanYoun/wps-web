@@ -3,6 +3,7 @@ package com.dcjt.wpsweb.wps.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dcjt.wpsweb.common.api.Response;
+import com.dcjt.wpsweb.wps.dto.WpsCopyDTO;
 import com.dcjt.wpsweb.wps.dto.WpsUserDTO;
 import com.dcjt.wpsweb.wps.factory.WpsFactory;
 import org.slf4j.Logger;
@@ -76,7 +77,11 @@ public class FileCallBackController {
      * @param _w_avatar_url 头像路径
      */
     @PostMapping("new")
-    public ResponseEntity<Object> fileNew(@RequestBody MultipartFile file, String _w_userid, String _w_username, String _w_permission, String _w_avatar_url) {
+    public ResponseEntity<Object> fileNew(@RequestBody MultipartFile file,
+                                          @RequestParam String _w_userid,
+                                          @RequestParam String _w_username,
+                                          @RequestParam String _w_permission,
+                                          @RequestParam String _w_avatar_url) {
         WpsUserDTO user = new WpsUserDTO();
         user.set_w_userid(_w_userid);
         user.set_w_username(_w_username);
@@ -85,5 +90,21 @@ public class FileCallBackController {
         Map<String, Object> res = WpsFactory.fileService.fileNew(file, user);
         return Response.success(res);
     }
+
+
+    /**
+     * 复制文件
+     */
+    @PostMapping("copy")
+    public ResponseEntity<Object> fileCopy(@RequestBody WpsCopyDTO wpsCopyDTO) {
+        WpsUserDTO user = new WpsUserDTO();
+        user.set_w_userid(wpsCopyDTO.get_w_userid());
+        user.set_w_username(wpsCopyDTO.get_w_username());
+        user.set_w_permission(wpsCopyDTO.get_w_permission());
+        user.set_w_avatar_url(wpsCopyDTO.get_w_avatar_url());
+        Map<String, Object> res = WpsFactory.fileService.fileCopy(wpsCopyDTO.getFile_id(), user);
+        return Response.success(res);
+    }
+
 
 }

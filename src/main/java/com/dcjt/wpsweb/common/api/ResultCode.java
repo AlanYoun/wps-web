@@ -7,7 +7,7 @@ package com.dcjt.wpsweb.common.api;
  * @date 2020/9/21
  */
 public enum ResultCode implements IResultCode {
-    SUCCESS(200, "操作成功"),
+    SUCCESS(0, "操作成功"),
     FAILURE(400, "业务异常"),
     UN_AUTHORIZED(401, "请求未授权"),
     CLIENT_UN_AUTHORIZED(401, "客户端请求未授权"),
@@ -25,10 +25,12 @@ public enum ResultCode implements IResultCode {
     final int code;
     final String message;
 
+    @Override
     public int getCode() {
         return this.code;
     }
 
+    @Override
     public String getMessage() {
         return this.message;
     }

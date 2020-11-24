@@ -7,11 +7,13 @@ wps:
   appid: 8c5f9f36750d418d92dd8d031ad5ac73
   appsecret: 3dae357b988d4c82bc413ba9bbb1668e
 
-  # MinIo文件服务器
+# MinIo文件服务器
 minio:
-  endpoint: http://192.168.3.123:9001
+  endpoint: http://192.168.3.188:9000
 #  映射到外网/政务网服务地址
-  net-endpoint: http://6b4407535f7e.ngrok.io
+  net-endpoint: http://yy.ngrok2.xiaomiqiu.cn
+  #accessKey: minioadmin
+  #secretKey: minioadmin
   accessKey: AKIAIOSFODNN7EXAMPLE
   secretKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
   bucketName: wps
@@ -19,9 +21,10 @@ minio:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.3.127:5432/wps
+    url: jdbc:postgresql://192.168.3.188:5432/wps
     username: postgres
-    password: scyj123
+    password: zhzx@admin
+    #password: scyj123
   jpa:
     show-sql: true
     hibernate:

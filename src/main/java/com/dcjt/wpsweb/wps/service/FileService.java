@@ -100,7 +100,6 @@ public class FileService {
             };
 
             String wpsUrl = wpsUtil.getWpsUrl(values, fileType, wFile.getId());
-
             t.setToken(CommonUtil.uuid());
             t.setExpires_in(600);
             t.setWpsUrl(wpsUrl);
@@ -148,8 +147,31 @@ public class FileService {
      * @return
      */
     public Map<String, Object> fileNew(MultipartFile mFile, WpsUserDTO user) {
-
         MinioFile minioFile = minioService.upload(minioProperties.getBucketName(), mFile);
+        return fileSave(user,minioFile);
+    }
+
+    /**
+     * 新建文件
+     *
+     * @param fileId 文件编号
+     * @param user 用户ID
+     * @return
+     */
+    public Map<String, Object> fileCopy(String fileId, WpsUserDTO user) {
+        WFile oldFile =fileRepository.getOne(fileId);
+        MinioFile minioFile = minioService.coypFile(minioProperties.getBucketName(), oldFile.getName(),"test");
+        minioFile.setSize(oldFile.getSize());
+        return fileSave(user,minioFile);
+    }
+
+    /**
+     * 保存文件
+     * @param user
+     * @param minioFile
+     * @return
+     */
+    private Map<String, Object> fileSave(WpsUserDTO user,  MinioFile minioFile ){
 
         WFile wFile = new WFile();
         wFile.setName(minioFile.getName());
@@ -165,9 +187,12 @@ public class FileService {
         //封装返回信息
         return new HashMap<String, Object>() {
             {
+                put("download_url", wFile.getDownload_url());
+                put("file_id", wFile.getId());
                 put("redirect_url", getViewUrl(wFile.getId(), user.toUser(), false).getWpsUrl());
                 put("user_id", user.get_w_userid());
             }
         };
     }
+
 }
