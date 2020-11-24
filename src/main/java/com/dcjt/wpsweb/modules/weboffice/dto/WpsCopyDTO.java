@@ -1,4 +1,4 @@
-package com.dcjt.wpsweb.wps.dto;
+package com.dcjt.wpsweb.modules.weboffice.dto;
 
 
 import lombok.Data;
