@@ -25,4 +25,9 @@ public class WpsProperties {
 
     private String localDir;
 
+    /**
+     * 是否需要签名（默认不需要）
+     */
+    private boolean signature = false;
+
 }

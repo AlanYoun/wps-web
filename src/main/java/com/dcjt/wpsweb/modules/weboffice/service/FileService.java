@@ -59,7 +59,6 @@ public class FileService {
     public Map<String, Object> info(WpsUserDTO user) {
         //获取文件ID
         String fileId = Context.getFileId();
-        System.out.println("文件ID：" + fileId + " 用户ID： " + user.get_w_userid());
         //组装
         WFile wFile = fileRepository.findById(fileId).get();
         FileDTO file = new FileDTO();
@@ -77,7 +76,7 @@ public class FileService {
      * 获取查看URL
      *
      * @param fileId     文件ID
-     * @param user     用户对象
+     * @param user       用户对象
      * @param checkToken 是否验证token
      * @return
      */
@@ -90,7 +89,9 @@ public class FileService {
 
             Map<String, String> values = new HashMap<String, String>(user.getWpsMap()) {
                 {
-                    put("_w_appid", wpsProperties.getAppid());
+                    if (wpsProperties.isSignature()) {
+                        put("_w_appid", wpsProperties.getAppid());
+                    }
                     if (checkToken) {
                         put("_w_tokentype", "1");
                     }
@@ -142,35 +143,36 @@ public class FileService {
      * 新建文件
      *
      * @param mFile 文件
-     * @param user 用户ID
+     * @param user  用户ID
      * @return
      */
     public Map<String, Object> fileNew(MultipartFile mFile, WpsUserDTO user) {
         MinioFile minioFile = minioService.upload(minioProperties.getBucketName(), mFile);
-        return fileSave(user,minioFile);
+        return fileSave(user, minioFile);
     }
 
     /**
      * 新建文件
      *
      * @param fileId 文件编号
-     * @param user 用户ID
+     * @param user   用户ID
      * @return
      */
     public Map<String, Object> fileCopy(String fileId, WpsUserDTO user) {
-        WFile oldFile =fileRepository.getOne(fileId);
-        MinioFile minioFile = minioService.coypFile(minioProperties.getBucketName(), oldFile.getName(),"test");
+        WFile oldFile = fileRepository.getOne(fileId);
+        MinioFile minioFile = minioService.coypFile(minioProperties.getBucketName(), oldFile.getName(), "test");
         minioFile.setSize(oldFile.getSize());
-        return fileSave(user,minioFile);
+        return fileSave(user, minioFile);
     }
 
     /**
      * 保存文件
+     *
      * @param user
      * @param minioFile
      * @return
      */
-    private Map<String, Object> fileSave(WpsUserDTO user,  MinioFile minioFile ){
+    private Map<String, Object> fileSave(WpsUserDTO user, MinioFile minioFile) {
 
         WFile wFile = new WFile();
         wFile.setName(minioFile.getName());
