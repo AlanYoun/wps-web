@@ -3,6 +3,7 @@ package com.dcjt.wpsweb.modules.weboffice.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dcjt.wpsweb.common.api.Response;
+import com.dcjt.wpsweb.modules.weboffice.dto.HistoryDTO;
 import com.dcjt.wpsweb.modules.weboffice.dto.WpsUserDTO;
 import com.dcjt.wpsweb.modules.weboffice.factory.WpsFactory;
 import com.dcjt.wpsweb.modules.weboffice.dto.WpsCopyDTO;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -106,5 +109,17 @@ public class FileCallBackController {
         return Response.success(res);
     }
 
-
+    /**
+     * 文件历史记录
+     * @param historyDTO 请求参数对象
+     * @return
+     */
+    @PostMapping("history")
+    public ResponseEntity<Object> history(@RequestBody HistoryDTO historyDTO){
+        return Response.success(new HashMap(1){
+            {
+                put("histories", Collections.emptyList());
+            }
+        });
+    }
 }

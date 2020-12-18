@@ -1,16 +1,13 @@
 package com.dcjt.wpsweb.common.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 
+import com.alibaba.fastjson.JSON;
 import com.dcjt.wpsweb.common.domain.MinioFile;
 import com.dcjt.wpsweb.common.util.CommonUtil;
-import io.minio.BucketExistsArgs;
-import io.minio.CopyObjectArgs;
-import io.minio.CopySource;
-import io.minio.GetObjectArgs;
-import io.minio.MinioClient;
-import io.minio.ObjectWriteResponse;
-import io.minio.PutObjectArgs;
+import io.minio.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -53,6 +50,7 @@ public class MinioService {
      * @return
      */
     public MinioFile upload(String bucketName, MultipartFile file, String fileName) {
+        log.info("original file name: "+file.getOriginalFilename() + " file name: "+file.getName() + " file size:" + file.getSize() +"  fileName：" +fileName);
         MinioFile minioFile = new MinioFile();
         try{
             if(!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
