@@ -118,11 +118,11 @@ public class FileService {
      */
     public Map<String, Object> save(MultipartFile mFile, String userId) {
         String fileId = Context.getFileId();
+        WFile wFile = fileRepository.getOne(fileId);
 
         //上传文件
-        MinioFile minioFile = minioService.upload(minioProperties.getBucketName(), mFile, mFile.getOriginalFilename());
+        MinioFile minioFile = minioService.upload(minioProperties.getBucketName(), mFile, wFile.getName());
         //保存至数据库
-        WFile wFile = fileRepository.getOne(fileId);
         wFile.setSize(minioFile.getSize());
         wFile.setModifier(userId);
         wFile.setModify_time(System.currentTimeMillis());

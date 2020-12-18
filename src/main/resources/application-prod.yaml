@@ -1,6 +1,6 @@
 #wps密码配置
 wps:
-  domain: http://59.255.109.59/
+  domain: http://59.255.109.59/office/
 
 # MinIo文件服务器
 minio:
