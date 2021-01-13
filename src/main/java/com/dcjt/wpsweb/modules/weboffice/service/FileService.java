@@ -158,9 +158,9 @@ public class FileService {
      * @param user   用户ID
      * @return
      */
-    public Map<String, Object> fileCopy(String fileId, WpsUserDTO user,String prefex) {
+    public Map<String, Object> fileCopy(String fileId, WpsUserDTO user) {
         WFile oldFile = fileRepository.getOne(fileId);
-        MinioFile minioFile = minioService.coypFile(minioProperties.getBucketName(), oldFile.getName(), "test",prefex);
+        MinioFile minioFile = minioService.coypFile(minioProperties.getBucketName(), oldFile.getName());
         minioFile.setSize(oldFile.getSize());
         return fileSave(user, minioFile);
     }

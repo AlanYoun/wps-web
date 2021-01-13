@@ -78,8 +78,8 @@ public class MinioService {
      * @param objectName 存储桶里的对象名称
      * @return
      */
-    public MinioFile coypFile(String bucketName, String objectName,String newName,String prefex){
-        newName = CommonUtil.uuid() + prefex;
+    public MinioFile coypFile(String bucketName, String objectName){
+        String newName = CommonUtil.uuid() + "." + CommonUtil.fileSuffix(objectName);
         return coypWithUrl(bucketName,objectName,newName);
     }
     /**
