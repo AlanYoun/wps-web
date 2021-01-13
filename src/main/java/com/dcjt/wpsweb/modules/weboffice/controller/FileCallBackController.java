@@ -10,6 +10,7 @@ import com.dcjt.wpsweb.modules.weboffice.dto.WpsCopyDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -105,6 +106,7 @@ public class FileCallBackController {
         user.set_w_username(wpsCopyDTO.get_w_username());
         user.set_w_permission(wpsCopyDTO.get_w_permission());
         user.set_w_avatar_url(wpsCopyDTO.get_w_avatar_url());
+        wpsCopyDTO.setPrefex(StringUtils.isEmpty(wpsCopyDTO.getPrefex())?".docx":wpsCopyDTO.getPrefex());
         Map<String, Object> res = WpsFactory.fileService.fileCopy(wpsCopyDTO.getFile_id(), user,wpsCopyDTO.getPrefex());
         return Response.success(res);
     }
