@@ -79,7 +79,7 @@ public class MinioService {
      * @return
      */
     public MinioFile coypFile(String bucketName, String objectName){
-        String newName = CommonUtil.uuid() + CommonUtil.fileSuffix(objectName);
+        String newName = CommonUtil.uuid() + "." + CommonUtil.fileSuffix(objectName);
         return coypWithUrl(bucketName,objectName,newName);
     }
     /**
