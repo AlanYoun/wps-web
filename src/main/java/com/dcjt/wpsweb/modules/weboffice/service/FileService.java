@@ -160,7 +160,7 @@ public class FileService {
      */
     public Map<String, Object> fileCopy(String fileId, WpsUserDTO user) {
         WFile oldFile = fileRepository.getOne(fileId);
-        MinioFile minioFile = minioService.coypFile(minioProperties.getBucketName(), oldFile.getName(), "test");
+        MinioFile minioFile = minioService.coypFile(minioProperties.getBucketName(), oldFile.getName());
         minioFile.setSize(oldFile.getSize());
         return fileSave(user, minioFile);
     }
