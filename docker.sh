@@ -3,6 +3,7 @@ docerfile_name="Dockerfile"
 version="latest"
 save_name="f:/jars"
 save_path="f:/jars/"
+file_name="dcjt-wps"
 echo "正在读取 ${file_name}"
 if [ -f "${docerfile_name}" ];then
                 docker stop ${file_name}
