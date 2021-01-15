@@ -13,4 +13,10 @@ public class WpsCopyDTO extends WpsUserDTO{
      * 文件编号
      */
     private String file_id;
+
+
+    /**
+     * 文件后缀
+     */
+    private String prefex;
 }
