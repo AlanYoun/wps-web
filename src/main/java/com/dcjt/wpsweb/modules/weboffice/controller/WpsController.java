@@ -28,7 +28,7 @@ public class WpsController {
     @GetMapping("getViewUrl")
     public ResponseEntity<Object> getViewUrlDbPath(String fileId, UserDTO userDTO){
         log.info("getViewUrlDbPath：fileId={},userId={}",fileId,userDTO.getId());
-        Token t = WpsFactory.fileService.getViewUrl(fileId, userDTO,true);
+        Token t = WpsFactory.fileService.getViewUrl(fileId, userDTO,false);
         if (t != null){
             return Response.success(t);
         }else {
