@@ -107,7 +107,7 @@ public class FileCallBackController {
         user.set_w_permission(wpsCopyDTO.get_w_permission());
         user.set_w_avatar_url(wpsCopyDTO.get_w_avatar_url());
         wpsCopyDTO.setPrefex(StringUtils.isEmpty(wpsCopyDTO.getPrefex())?".docx":wpsCopyDTO.getPrefex());
-        Map<String, Object> res = WpsFactory.fileService.fileCopy(wpsCopyDTO.getFile_id(), user,wpsCopyDTO.getPrefex());
+        Map<String, Object> res = WpsFactory.fileService.fileCopy(wpsCopyDTO.getFile_id(), user);
         return Response.success(res);
     }
 
