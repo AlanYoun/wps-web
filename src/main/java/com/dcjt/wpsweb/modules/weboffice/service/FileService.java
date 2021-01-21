@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 描述信息
@@ -119,6 +120,9 @@ public class FileService {
     public Map<String, Object> save(MultipartFile mFile, String userId) {
         String fileId = Context.getFileId();
         WFile wFile = fileRepository.getOne(fileId);
+        if(Objects.isNull(wFile)) {
+            return new HashMap<>(0);
+        }
 
         //上传文件
         MinioFile minioFile = minioService.upload(minioProperties.getBucketName(), mFile, wFile.getName());
@@ -160,6 +164,9 @@ public class FileService {
      */
     public Map<String, Object> fileCopy(String fileId, WpsUserDTO user) {
         WFile oldFile = fileRepository.getOne(fileId);
+        if(Objects.isNull(oldFile)) {
+            return new HashMap<>(0);
+        }
         MinioFile minioFile = minioService.coypFile(minioProperties.getBucketName(), oldFile.getName());
         minioFile.setSize(oldFile.getSize());
         return fileSave(user, minioFile);
