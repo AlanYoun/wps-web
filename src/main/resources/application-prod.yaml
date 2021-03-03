@@ -17,3 +17,7 @@ spring:
     url: jdbc:postgresql://59.255.109.57:5432/wps
     username: postgres
     password: zhzx@admin
+  servlet:
+    multipart:
+      max-file-size: 50MB  #单个数据大小
+      max-request-size: 100MB #总数据大小
