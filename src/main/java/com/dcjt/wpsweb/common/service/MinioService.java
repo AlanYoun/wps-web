@@ -43,7 +43,7 @@ public class MinioService {
 
 
     /**
-     * 上传问价
+     * 上传文件
      * @param bucketName 存储桶名称
      * @param file 文件
      * @param fileName minio文件名称
@@ -83,7 +83,7 @@ public class MinioService {
         return coypWithUrl(bucketName,objectName,newName);
     }
     /**
-     * 上传问价
+     * 上传文件
      * @param bucketName 存储桶名称
      * @param objectName minio文件名称
      * @return
@@ -110,8 +110,19 @@ public class MinioService {
         return minioFile;
     }
 
-
-    public static void main(String[] args) {
-        System.out.println(CommonUtil.fileSuffix("11.exe"));
+    /**
+     * 删除文件
+     * @param bucketName 存储桶名称
+     * @param fileName 文件名称
+     * @return
+     */
+    public boolean remove(String bucketName, String fileName){
+        try {
+            minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(fileName).build());
+            return true;
+        }catch (Exception e) {
+            log.error("file remove error:{}", e.getMessage(), e);
+            return false;
+        }
     }
 }

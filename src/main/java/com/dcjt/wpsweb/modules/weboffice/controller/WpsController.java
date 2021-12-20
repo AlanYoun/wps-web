@@ -3,12 +3,15 @@ package com.dcjt.wpsweb.modules.weboffice.controller;
 import com.dcjt.wpsweb.common.api.Response;
 import com.dcjt.wpsweb.modules.weboffice.common.Token;
 import com.dcjt.wpsweb.modules.weboffice.dto.UserDTO;
+import com.dcjt.wpsweb.modules.weboffice.entity.WFile;
 import com.dcjt.wpsweb.modules.weboffice.factory.WpsFactory;
+import com.dcjt.wpsweb.modules.weboffice.vo.RespFileVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 /**
  * 描述信息
@@ -35,4 +38,33 @@ public class WpsController {
             return Response.bad("文件不存在或其它异常！");
         }
     }
+
+    /**
+     * 获取文件信息
+     * @param id 文件id
+     * @return 文件信息
+     */
+    @GetMapping("/file/info")
+    public ResponseEntity<Object> info(@RequestParam String id){
+        WFile file = WpsFactory.fileService.getWFile(id);
+        if(Objects.isNull(file)) {
+            return Response.bad("文件不存在");
+        }
+        RespFileVO fileVO = new RespFileVO();
+        fileVO.setId(file.getId());
+        fileVO.setName(file.getName());
+        fileVO.setDownloadUrl(file.getDownload_url());
+        return Response.success(fileVO);
+    }
+
+    /**
+     * 删除文件信息
+     * @param id 文件id
+     * @return 文件信息
+     */
+    @PostMapping("/file/remove/{id}")
+    public ResponseEntity<Object> remove(@PathVariable String id){
+        return Response.success(WpsFactory.fileService.remove(id));
+    }
+
 }

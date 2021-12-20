@@ -120,7 +120,7 @@ public class FileService {
     public Map<String, Object> save(MultipartFile mFile, String userId) {
         String fileId = Context.getFileId();
         WFile wFile = fileRepository.getOne(fileId);
-        if(Objects.isNull(wFile)) {
+        if (Objects.isNull(wFile)) {
             return new HashMap<>(0);
         }
 
@@ -164,7 +164,7 @@ public class FileService {
      */
     public Map<String, Object> fileCopy(String fileId, WpsUserDTO user) {
         WFile oldFile = fileRepository.getOne(fileId);
-        if(Objects.isNull(oldFile)) {
+        if (Objects.isNull(oldFile)) {
             return new HashMap<>(0);
         }
         MinioFile minioFile = minioService.coypFile(minioProperties.getBucketName(), oldFile.getName());
@@ -201,6 +201,32 @@ public class FileService {
                 put("user_id", user.get_w_userid());
             }
         };
+    }
+
+    /**
+     * 获取文件信息
+     *
+     * @param id ID
+     * @return
+     */
+    public WFile getWFile(String id) {
+        return fileRepository.getOne(id);
+    }
+
+    /**
+     * 删除文件
+     *
+     * @param id 文件ID
+     * @return
+     */
+    public boolean remove(String id) {
+        WFile wFile = fileRepository.findById(id).orElse(null);
+        if(Objects.isNull(wFile)) {
+            log.warn("file id:{} does not exist", id);
+           return false;
+        }
+        fileRepository.deleteById(id);
+        return minioService.remove(minioProperties.getBucketName(), wFile.getName());
     }
 
 }
