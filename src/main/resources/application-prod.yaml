@@ -13,10 +13,19 @@ minio:
 
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://59.255.109.57:5432/wps
-    username: postgres
-    password: zhzx@admin
+    dynamic:
+      strict: true
+      datasource:
+        master:
+          driver-class-name: org.postgresql.Driver
+          url: jdbc:postgresql://59.255.109.57:5432/wps
+          username: postgres
+          password: zhzx@admin
+        zb:
+          driver-class-name: org.postgresql.Driver
+          url: jdbc:postgresql://59.255.109.57:5432/xxzb
+          username: postgres
+          password: zhzx@admin
   servlet:
     multipart:
       max-file-size: 50MB  #单个数据大小

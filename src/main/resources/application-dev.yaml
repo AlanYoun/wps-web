@@ -1,3 +1,5 @@
+server:
+  port: 8080
 #wps密码配置
 wps:
   domain: https://wwo.wps.cn/office/
@@ -9,7 +11,7 @@ wps:
 minio:
   endpoint: http://192.168.30.127:9000
   #  映射到外网/政务网服务地址
-  net-endpoint: http://117.173.87.121:9000
+  net-endpoint: http://117.139.13.147:9000
   # http://yy.ngrok2.xiaomiqiu.cn
 #  accessKey: AKIAIOSFODNN7EXAMPLE
 #  secretKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
@@ -19,10 +21,19 @@ minio:
 
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.30.127:5432/wps
-    username: postgres
-    password: scyj123
+    dynamic:
+      strict: true
+      datasource:
+        master:
+          driver-class-name: org.postgresql.Driver
+          url: jdbc:postgresql://192.168.30.127:5432/wps
+          username: postgres
+          password: scyj123
+        zb:
+          driver-class-name: org.postgresql.Driver
+          url: jdbc:postgresql://192.168.30.127:5432/dcjt-zbxt-wps-preview
+          username: postgres
+          password: scyj123
   jpa:
     show-sql: true
     hibernate:

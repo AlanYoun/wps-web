@@ -22,6 +22,7 @@
         <postgresql.version>42.2.16</postgresql.version>
         <commons-codec.version>1.15</commons-codec.version>
         <log4j.version>2.15.0</log4j.version>
+        <mybatis.plus.version>3.5.1</mybatis.plus.version>
     </properties>
 
     <dependencies>
@@ -85,16 +86,11 @@
             <version>${commons-codec.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.apache.logging.log4j</groupId>-->
-<!--            <artifactId>log4j-to-slf4j</artifactId>-->
-<!--            <version>${log4j.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.logging.log4j</groupId>-->
-<!--            <artifactId>log4j-api</artifactId>-->
-<!--            <version>${log4j.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>${mybatis.plus.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
